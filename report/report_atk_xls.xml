@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+	<data>
+        <report
+            id="report_atk_xlsx"
+            model="atk.stationary.request"
+            string=" "
+            report_type="xlsx"
+            name="prasetia.atk.xls.xlsx"
+            file="prasetia.atk.xls.xlsx"
+            attachment_use="False"
+        />
+	</data>
+</openerp>

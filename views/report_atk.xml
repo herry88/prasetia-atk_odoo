@@ -1,0 +1,97 @@
+<odoo>
+    <template id="report_atk_prasetia">
+       <!--  <t t-call="report.html_container"> -->
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <div class="header"> 
+                <div class="row">
+                    <div class="col-xs-3">
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-2 text-center">                        
+                    </div>
+                    <div class="col-xs-2 col-xs-offset-3 text-right">
+                        <ul class="list-inline">
+                            <li><span class="page"/></li>
+                            <li>/</li>
+                            <li><span class="topage"/></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="cols-xs-12 text-center"><h4>Laporan Pengeluaran ATK</h4></div>
+                </div> 
+                <div class="row" t-if="report_type == 'Bulanan'">
+                    <div class="cols-xs-12 text-center">
+                        <h5>Periode : <t t-if="report_type == 'Bulanan'">
+                                        <t t-if="bulan_filter == 1">Januari </t>
+                                        <t t-if="bulan_filter == 2">Februari </t>
+                                        <t t-if="bulan_filter == 3">Maret </t>
+                                        <t t-if="bulan_filter == 4">April </t>
+                                        <t t-if="bulan_filter == 5">Mei </t>
+                                        <t t-if="bulan_filter == 6">Juni </t>
+                                        <t t-if="bulan_filter == 7">Juli </t>
+                                        <t t-if="bulan_filter == 8">Agustus </t>
+                                        <t t-if="bulan_filter == 9">September </t>
+                                        <t t-if="bulan_filter == 10">Oktober </t>
+                                        <t t-if="bulan_filter == 11">November </t>
+                                        <t t-if="bulan_filter == 12">Desember </t>
+                                    </t> <span t-esc="tahun_filter"/>
+                        </h5>
+                    </div>
+                </div> 
+                <div class="row" t-if="report_type == 'Tahunan'">
+                    <div class="cols-xs-12 text-center">
+                        <h4>Tahun : <span t-esc="tahun_filter"/>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row" t-if="report_type == 'Harian'">
+                    <div class="cols-xs-12 text-center">
+                        <h4>Tanggal : <span t-esc="datetime.datetime.strptime(date_filter, '%Y-%m-%d').strftime('%d %B %Y')"/>
+                        </h4>
+                    </div>
+                </div>                
+            </div>
+            <div class="page">
+                <div class="row">
+                    <table class="table table-condensed table-bordered" style="border-color: black;">
+                        <thead>
+                            <tr>
+                                <th style="border-color: black;">No</th>
+                                <!-- <th style="border-color: black;">Kategori</th> -->
+                                <th style="border-color: black;">Nama Barang</th>
+                                <th style="border-color: black;">Qty In</th>
+                                <th style="border-color: black;">Qty Out</th>
+                                <th style="border-color: black;">Stock Remaining</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="inc" t-value="1"/>
+                            <t t-set="cekval" t-value="2"/>
+                            <t t-foreach="transactions" t-as="transaction">   
+                                <t t-if="not transaction['category_name'] == cekval">
+                                    <tr>
+                                        <th colspan="5" style="border-color: black;">
+                                            <span t-esc="transaction['category_name']"/>
+                                        </th>
+                                    </tr>
+                                    <t t-set="cekval" t-value="transaction['category_name']"/>
+                                </t>                         
+                                <tr>
+                                    <td style="border-color: black;"><span t-esc="inc"/><t t-set="inc" t-value="inc+1"/></td>
+                                    <!-- <td style="border-color: black;"><span t-esc="transaction['category_name']"/></td> -->
+                                    <td style="border-color: black;"><span t-esc="transaction['name']"/></td>
+                                    <td style="border-color: black;"><span t-esc="transaction['qty_in']"/></td>
+                                    <td style="border-color: black;"><span t-esc="transaction['qty_out']"/></td>
+                                    <td style="border-color: black;"><span t-esc="transaction['stock_remaining']"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <!-- </t> -->
+    </template>
+</odoo>

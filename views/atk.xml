@@ -1,0 +1,604 @@
+<openerp>
+	<data>
+
+		<record model="ir.ui.view" id="atk_transaction_form_view">
+			<field name="name">Transaksi</field>
+			<field name="model">atk.transaction</field>
+			<field name="arch" type="xml">
+				<form string="Transaction">
+					<header>
+					</header>
+					<sheet>
+						<group string="Transaksi harian">
+							<group>
+								<field name="name"/>
+							</group>
+							<group></group>
+						</group>
+						<notebook>
+							<page string="Stock Masuk">
+								<field name="StockIn_ids">	
+									<tree string="Stock Masuk" create="true">
+										<field name="item_category_id"/>
+										<field name="item_id"/>
+										<field name="qty"/>
+										<field name="unit_measure_id"/>
+										<field name="employee_id"/>
+										<field name="remark"/>
+									</tree>
+									<form string="Stock Masuk">
+										<sheet>
+											<group string="General information">
+												<group>
+													<field name="employee_id"/>
+												</group>
+												<group>
+													<field name="company_id"/>
+													<field name="departement_id"/>
+												</group>
+											</group>
+											<group string="Item Information">
+												<group>
+													<field name="item_category_id"/>
+													<field name="item_id" domain="[('item_category_id','=',item_category_id)]"/>
+												</group>
+												<group>
+													<field name="qty"/>
+													<field name="unit_measure_id"/>
+													<field name="price"/>
+												</group>
+											</group>
+											<group string="Other Information">
+												<field name="remark"/>												
+											</group>
+										</sheet>
+									</form>
+								</field>
+							</page>
+							<page string="Stock Keluar">
+								<field name="StockOut_ids">	
+									<tree string="Stock Keluar" create="true">
+										<field name="item_category_id"/>
+										<field name="item_id"/>
+										<field name="qty"/>
+										<field name="unit_measure_id"/>
+										<field name="employee_id"/>
+										<field name="remark"/>
+									</tree>
+									<form string="Stock Keluar">
+										<sheet>
+											<group string="General information">
+												<group>
+													<field name="employee_id"/>
+												</group>
+												<group>
+													<field name="company_id"/>
+													<field name="departement_id"/>
+												</group>
+											</group>
+											<group string="Item Information">
+												<group>
+													<field name="item_category_id"/>
+													<field name="item_id" domain="[('item_category_id','=',item_category_id)]"/>
+												</group>
+												<group>
+													<field name="qty"/>
+													<field name="unit_measure_id"/>
+												</group>
+											</group>
+											<group string="Other Information">
+												<field name="remark"/>												
+											</group>
+										</sheet>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_category_form_view">
+			<field name="name">Item Categories</field>
+			<field name="model">atk.item.category</field>
+			<field name="arch" type="xml">
+				<form string="Item Categories">
+					<header>
+					</header>
+					<sheet>
+						<group string="Item Categories">
+							<group>
+								<field name="name"/>
+							</group>
+							<group></group>
+						</group>
+						<notebook>
+							<page string="Item List">
+								<field name="item_ids">	
+									<tree string="Item List" create="true">
+										<field name="name"/>
+									</tree>									
+								</field>
+							</page>							
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_item_form_view">
+			<field name="name">Item</field>
+			<field name="model">atk.item</field>
+			<field name="arch" type="xml">
+				<form string="Item">
+					<header>
+					</header>
+					<sheet>
+						<group string="Item">
+							<group>
+								<field name="name"/>
+							</group>
+							<group>
+								<field name="item_category_id"/>
+								<field name="count_stock"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Transaksi Masuk">
+								<field name="StockIn_ids"/>
+							</page>
+							<page string="Transaksi Keluar">
+								<field name="StockOut_ids"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_employee_form_view">
+			<field name="name">Employee</field>
+			<field name="model">atk.employee</field>
+			<field name="arch" type="xml">
+				<form string="Employee">
+					<header>
+					</header>
+					<sheet>
+						<group string="Karyawan">
+							<group>
+								<field name="name"/>
+							</group>
+							<group>
+								<field name="company_id"/>
+								<field name="departement_id"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Stock Masuk">
+								<field name="StockIn_ids">	
+									<tree string="Stock Masuk" create="true">
+										<field name="item_category_id"/>
+										<field name="item_id"/>
+										<field name="qty"/>
+										<field name="unit_measure_id"/>
+										<field name="employee_id"/>
+										<field name="remark"/>
+									</tree>
+									<form string="Stock Masuk">
+										<sheet>
+											<group string="General information">
+												<group>
+													<field name="employee_id"/>
+												</group>
+												<group>
+													<field name="departement_id"/>
+													<field name="transaction_id"/>
+												</group>
+											</group>
+											<group string="Item Information">
+												<group>
+													<field name="item_category_id"/>
+													<field name="item_id" domain="[('item_category_id','=',item_category_id)]"/>
+												</group>
+												<group>
+													<field name="qty"/>
+													<field name="unit_measure_id"/>
+													<field name="price"/>
+												</group>
+											</group>
+											<group string="Other Information">
+												<field name="remark"/>												
+											</group>
+										</sheet>
+									</form>
+								</field>
+							</page>
+							<page string="Stock Keluar">
+								<field name="StockOut_ids">	
+									<tree string="Stock Keluar" create="true">
+										<field name="item_category_id"/>
+										<field name="item_id"/>
+										<field name="qty"/>
+										<field name="unit_measure_id"/>
+										<field name="employee_id"/>
+										<field name="remark"/>
+									</tree>
+									<form string="Stock Keluar">
+										<sheet>
+											<group string="General information">
+												<group>
+													<field name="employee_id"/>
+												</group>
+												<group>
+													<field name="departement_id"/>
+													<field name="transaction_id"/>
+												</group>
+											</group>
+											<group string="Item Information">
+												<group>
+													<field name="item_category_id"/>
+													<field name="item_id" domain="[('item_category_id','=',item_category_id)]"/>
+												</group>
+												<group>
+													<field name="qty"/>
+													<field name="unit_measure_id"/>
+												</group>
+											</group>
+											<group string="Other Information">
+												<field name="remark"/>												
+											</group>
+										</sheet>
+									</form>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_employee_form_view">
+			<field name="name">Stationary Request</field>
+			<field name="model">atk.stationary.request</field>
+			<field name="arch" type="xml">
+				<header>
+					<button name="action_submit" type="workflow" string="Submit" states="draft"/>
+					<button name="action_cancel" type="workflow" string="Cancel" states="submit, done"/>
+					<button name="action_done" type="workflow" string="Approve" states="submit" groups="prasetia.group_atk_request_manager" />
+					<button name="action_draft" type="workflow" string="Set to draft" states="submit"/>
+					<field name="state" widget="statusbar"/>
+				</header>
+				<sheet>
+					<group string="Karyawan">
+						<group>							
+							<field name="nik"/>
+							<field name="name"/>
+						</group>
+						<group>
+							<field name="company_id"/>
+							<field name="departement_id"/>
+							<field name="date_request"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Request Item">
+							<field name="stationary_request_line_ids">
+								<tree string="Request ATK Line" create="true" editable="bottom">
+									<field name="item_category_id"/>
+									<field name="item_id" domain="[('item_category_id','=',item_category_id)]"/>
+									<field name="qty"/>
+									<field name="unit_measure_id"/>
+									<field name="qty_out" groups="prasetia.group_atk_request_manager"/>
+									<field name="unit_measure_id_out" groups="prasetia.group_atk_request_manager"/>
+									<field name="remark"/>
+								</tree>
+							</field>							
+						</page>
+					</notebook>
+				</sheet>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_transaction_tree_view">
+			<field name="name">Transaksi</field>
+			<field name="model">atk.transaction</field>
+			<field name="arch" type="xml">
+				<tree string="Transaction" create="true">
+					<field name="date_transaction"/>
+					<field name="count_stockin_ids"/>
+					<field name="count_stockout_ids"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_category_tree_view">
+			<field name="name">Transaksi</field>
+			<field name="model">atk.item.category</field>
+			<field name="arch" type="xml">
+				<tree string="Categories" create="true">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_company_tree_view">
+			<field name="name">ATK Company</field>
+			<field name="model">atk.company</field>
+			<field name="arch" type="xml">
+				<tree string="Company" create="true">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="proses_search_item_view">
+            <field name="name">Transaksi</field>
+            <field name="model">atk.item</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="item_category_id"/>
+					<field name="name"/>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="atk_item_tree_view">
+			<field name="name">Transaksi</field>
+			<field name="model">atk.item</field>
+			<field name="arch" type="xml">
+				<tree string="Items" create="true">
+					<field name="item_category_id"/>
+					<field name="name"/>
+					<field name="count_stock"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="proses_search_stock_in_view">
+            <field name="name">Proses Search Stock in</field>
+            <field name="model">atk.stock.in</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="transaction_id"/>
+                    <field name="item_category_id"/>
+                    <field name="item_id"/>
+                    <field name="departement_id"/>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="atk_stock_in_tree_view">
+			<field name="name">Transaksi</field>
+			<field name="model">atk.stock.in</field>
+			<field name="arch" type="xml">
+				<tree string="Items" create="true" editable="bottom">
+					<field name="transaction_id"/>
+					<field name="item_category_id"/>
+					<field name="item_id"/>
+					<field name="employee_id"/>
+					<field name="company_id"/>
+					<field name="departement_id"/>
+					<field name="unit_measure_id"/>
+					<field name="qty"/>
+					<field name="price"/>
+					<field name="remark"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="proses_search_stock_out_view">
+            <field name="name">Proses Search Stock out</field>
+            <field name="model">atk.stock.out</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="employee_id"/>
+                    <field name="transaction_id"/>
+                    <field name="item_category_id"/>
+                    <field name="item_id"/>
+                    <field name="departement_id"/>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.ui.view" id="atk_stock_out_tree_view">
+			<field name="name">Transaksi</field>
+			<field name="model">atk.stock.out</field>
+			<field name="arch" type="xml">
+				<tree string="Items" create="true" editable="bottom">
+					<field name="transaction_id"/>
+					<field name="item_category_id"/>
+					<field name="item_id"/>
+					<field name="employee_id"/>
+					<field name="company_id"/>
+					<field name="departement_id"/>
+					<field name="unit_measure_id"/>
+					<field name="qty"/>
+					<field name="remark"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_employee_tree_view">
+			<field name="name">atk.Employee</field>
+			<field name="model">atk.employee</field>
+			<field name="arch" type="xml">
+				<tree string="Transaction" create="true">
+					<field name="name"/>
+					<field name="company_id"/>
+					<field name="departement_id"/>
+					<field name="count_stockin_ids"/>
+					<field name="count_stockout_ids"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="atk_stationary_request_tree_view">
+			<field name="name">atk.stationary.request</field>
+			<field name="model">atk.stationary.request</field>
+			<field name="arch" type="xml">
+				<tree string="Permintaan A T K" create="true">
+					<field name="queue"/>
+					<field name="company_id"/>
+					<field name="nik"/>
+					<field name="name"/>
+					<field name="state"/>
+					<field name="date_request"/>
+				</tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="atk_stationary_request_search_view">
+            <field name="name">Proses Search ATK Stationary request</field>
+            <field name="model">atk.stationary.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="company_id"/>
+                    <field name="nik"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <filter string="ATK belum di proses" name="unprocess_atk" domain="[('state', 'not in', ['done', 'cancel', 'draft'])]"/>
+                    <filter string="ATK belum di proses, Draft" name="unprocess_atk_draft" domain="[('state', 'not in', ['done', 'cancel'])]"/>
+                    <filter string="ATK sudah di proses / Cancel" name="process_atk" domain="[('state', 'in', ['done', 'cancel'])]"/>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window" id="transaction_list_action">
+			<field name="name">Transaksi</field>
+			<field name="res_model">atk.transaction</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Transaction
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="categories_list_action">
+			<field name="name">Categories</field>
+			<field name="res_model">atk.item.category</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Categories
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="item_list_action">
+			<field name="name">Item</field>
+			<field name="res_model">atk.item</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Item
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="employee_list_action">
+			<field name="name">Employee</field>
+			<field name="res_model">atk.employee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Employee
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="departement_list_action">
+			<field name="name">Departement</field>
+			<field name="res_model">atk.departement</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Departement
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="uom_list_action">
+			<field name="name">Unit Measure</field>
+			<field name="res_model">atk.uom</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					UOM
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="stock_in_list_action">
+			<field name="name">Stock In</field>
+			<field name="res_model">atk.stock.in</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Stock In
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="stock_out_list_action">
+			<field name="name">Stock Out</field>
+			<field name="res_model">atk.stock.out</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Stock Out
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="company_list_action">
+			<field name="name">Company</field>
+			<field name="res_model">atk.company</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Stock Out
+				</p>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="stationary_request_list_action">
+			<field name="name">Stationary Request</field>
+			<field name="res_model">atk.stationary.request</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_state':'submit'}</field>
+			<field name="Help" type="html">
+				<p class="oe_view_nocontent_create">
+					Stationary Request
+				</p>
+			</field>
+		</record>
+
+		<menuitem id="prasetia_menu" name="Prasetia"/>
+		<menuitem id="prasetia_sub_menu" name="Action" parent="prasetia_menu"/>
+		<menuitem id="stationary_request" name="Request ATK" parent="prasetia_sub_menu" action="stationary_request_list_action"/>
+		<menuitem id="atk" name="A T K" parent="prasetia_sub_menu" action="transaction_list_action" groups="prasetia.group_atk_request_manager"/>
+
+		<menuitem id="prasetia_configuration_menu" name="Configuration" parent="prasetia_menu"/>
+		<menuitem id="categories" name="Categories" parent="prasetia_configuration_menu" action="categories_list_action" groups="prasetia.group_atk_request_manager"/>
+		<menuitem id="items" name="Items" parent="prasetia_configuration_menu" action="item_list_action" groups="prasetia.group_atk_request_manager"/>
+		<menuitem id="departements" name="Departement" parent="prasetia_configuration_menu" action="departement_list_action" groups="prasetia.group_atk_request_manager"/>
+		<menuitem id="employees" name="Employee" parent="prasetia_configuration_menu" action="employee_list_action" groups="prasetia.group_atk_request_manager"/>
+		<menuitem id="Companies" name="Companies" parent="prasetia_configuration_menu" action="company_list_action"/>
+		<menuitem id="uom" name="Unit Measure" parent="prasetia_configuration_menu" action="uom_list_action" groups="prasetia.group_atk_request_manager"/>
+		<menuitem id="stock_in" name="Stock in" parent="prasetia_configuration_menu" action="stock_in_list_action"/>
+		<menuitem id="stock_out" name="Stock out" parent="prasetia_configuration_menu" action="stock_out_list_action"/>
+	</data>
+</openerp>

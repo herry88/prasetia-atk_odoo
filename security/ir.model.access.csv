@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_atk_transaction,Transaction,model_atk_transaction,group_atk_request_manager,1,0,0,0
+access_atk_stock_out,Stock out,model_atk_stock_out,group_atk_request_manager,1,1,1,0
+access_atk_stock_in,Stock in,model_atk_stock_in,group_atk_request_manager,1,1,1,0
+access_atk_item_category,Kategori,model_atk_item_category,group_atk_request_manager,1,1,1,0
+access_atk_item,Barang,model_atk_item,group_atk_request_manager,1,1,1,0
+access_atk_employee,Employee,model_atk_employee,group_atk_request_manager,1,1,1,1
+access_atk_departement,Departement,model_atk_departement,group_atk_request_manager,1,1,1,0
+access_atk_uom,UOM,model_atk_uom,group_atk_request_manager,1,1,1,0
+access_atk_company,Company,model_atk_company,group_atk_request_manager,1,1,1,1
+access_atk_stationary_request,Stationary Request,model_atk_stationary_request,group_atk_request_manager,1,1,1,0
+access_atk_stationary_request_line,Stationary Request Line,model_atk_stationary_request_line,group_atk_request_manager,1,1,1,0

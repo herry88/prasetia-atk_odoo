@@ -1,0 +1,56 @@
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="wizard_form_rekap_atk">
+			<field name="name">wizard.form.rekap.atk</field>
+			<field name="model">rekap.atk</field>
+			<field name="arch" type="xml">
+				<form string="Rekap ATK">
+					<group>
+						<field name="report_type" widget="radio"/>						
+					</group>
+					<group attrs="{'invisible':[('report_type','in',['Tahunan', 'Bulanan'])]}">
+						<group>
+							<field name="date_filter"/>
+						</group>
+						<group></group>
+					</group>
+					<group attrs="{'invisible':[('report_type','in',['Harian'])]}">
+						<group attrs="{'invisible':[('report_type','in',['Tahunan'])]}"><field name="month_filter"/></group>
+						<group><field name="year_filter" widget="payment"/></group>						
+					</group>
+					<footer>
+                        <button name="check_report" type="object"
+                                string="Print" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_wizard_atk" model="ir.actions.act_window">
+			<field name="name">Wizard Report ATK</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">rekap.atk</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_form_rekap_atk"/>
+			<field name="target">new</field>
+		</record>
+
+		<record 
+			id="action_wizard_atk_values"
+			model="ir.values">
+			<field name="model_id" ref="prasetia.model_atk_transaction"/>
+			<field name="name">Rekap ATK</field>
+			<field name="key2">rekap_atk</field>
+			<field name="value" eval="'ir.actions.act_window,' +str(ref('action_wizard_atk'))"/>
+			<field name="key">action</field>
+			<field name="model">atk.transaction</field>
+		</record>
+
+		<menuitem id="prasetia_report_menu" name="Laporan"/>
+		<menuitem id="prasetia_report_sub_menu" name="Action" parent="prasetia_report_menu"/>
+		<menuitem id="report_atk" name="Report ATK" parent="prasetia_report_sub_menu" action="action_wizard_atk" groups="prasetia.group_atk_request_manager"/>
+	</data>
+</openerp>

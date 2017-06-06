@@ -1,0 +1,49 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wizard_form_rekap_request_atk">
+			<field name="name">wizard.form.request.rekap.atk</field>
+			<field name="model">rekap.request.atk</field>
+			<field name="arch" type="xml">
+				<form string="Rekap Request ATK">
+                    <group>
+						<field name="company_id"/>
+					</group>
+					<group>
+						<field name="report_type" widget="radio"/>						
+					</group>
+					<group attrs="{'invisible':[('report_type','in',['Tahunan', 'Bulanan'])]}">
+						<group>
+							<field name="date_filter"/>
+						</group>
+						<group></group>
+					</group>
+					<group attrs="{'invisible':[('report_type','in',['Harian'])]}">
+						<group attrs="{'invisible':[('report_type','in',['Tahunan'])]}"><field name="month_filter"/></group>
+						<group><field name="year_filter" widget="payment"/></group>						
+					</group>
+					<footer>
+                        <button name="check_report" type="object"
+                                string="Print" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+				</form>
+			</field>
+		</record>
+
+        <record id="action_wizard_request_atk" model="ir.actions.act_window">
+			<field name="name">Report Request ATK</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">rekap.request.atk</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="wizard_form_rekap_request_atk"/>
+			<field name="target">new</field>
+		</record>
+
+        <menuitem id="prasetia_report_atk_menu" name="Laporan ATK"/>
+		<menuitem id="prasetia_report_sub_atk_menu" name="Action" parent="prasetia_report_atk_menu"/>
+        <menuitem id="report_request_atk" name="Report Request ATK" parent="prasetia_report_sub_atk_menu"
+                  action="action_wizard_request_atk" groups="prasetia.group_atk_request_manager"/>
+    </data>
+</openerp>

@@ -1,0 +1,166 @@
+<openerp>
+    <template id="report_atk_request_prasetia">
+        <t t-set="data_report_margin_top" t-value="12"/>
+        <t t-set="data_report_header_spacing" t-value="9"/>
+        <t t-set="data_report_dpi" t-value="110"/>
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                </div>
+                <div class="col-xs-2 col-xs-offset-2 text-center">
+                </div>
+                <div class="col-xs-2 col-xs-offset-3 text-right">
+                    <ul class="list-inline">
+                        <li><span class="page"/></li>
+                        <li>/</li>
+                        <li><span class="topage"/></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cols-xs-12 text-center"><h4>Laporan Pengeluaran ATK</h4></div>
+            </div>
+            <div class="row">
+                <div class="cols-xs-12 text-center"><h4><span t-esc="company"/></h4></div>
+            </div>
+            <div class="row" t-if="report_type == 'Bulanan'">
+                <div class="cols-xs-12 text-center">
+                    <h5>Periode : <t t-if="report_type == 'Bulanan'">
+                                    <t t-if="bulan_filter == 1">Januari </t>
+                                    <t t-if="bulan_filter == 2">Februari </t>
+                                    <t t-if="bulan_filter == 3">Maret </t>
+                                    <t t-if="bulan_filter == 4">April </t>
+                                    <t t-if="bulan_filter == 5">Mei </t>
+                                    <t t-if="bulan_filter == 6">Juni </t>
+                                    <t t-if="bulan_filter == 7">Juli </t>
+                                    <t t-if="bulan_filter == 8">Agustus </t>
+                                    <t t-if="bulan_filter == 9">September </t>
+                                    <t t-if="bulan_filter == 10">Oktober </t>
+                                    <t t-if="bulan_filter == 11">November </t>
+                                    <t t-if="bulan_filter == 12">Desember </t>
+                                </t> <span t-esc="tahun_filter"/>
+                    </h5>
+                </div>
+            </div>
+            <div class="row" t-if="report_type == 'Tahunan'">
+                <div class="cols-xs-12 text-center">
+                    <h5>Tahun : <span t-esc="tahun_filter"/>
+                    </h5>
+                </div>
+            </div>
+            <div class="row" t-if="report_type == 'Harian'">
+                <div class="cols-xs-12 text-center">
+                    <h5>Tanggal : <span t-esc="datetime.datetime.strptime(date_filter, '%Y-%m-%d').strftime('%d %B %Y')"/>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="row">
+                <t t-foreach="transactions" t-as="transaction">
+                    <t t-set="item_check" t-value="999"/>
+                    <div class="col-md-12">
+                        <t t-if="not transaction['item_id'] == item_check">
+                            <!--<div class="col-md-6">
+                                <div class="row">
+                                    Kategori : <span t-esc="transaction['CATEGORY_NAME']"/>
+                                </div>
+                                <div class="row">
+                                    Item : <span t-esc="transaction['ITEM_NAME']"/>
+                                </div>
+                            </div>-->
+                            <div class="row">
+                                <table class="table table-condensed table-bordered" style="border-color: black;">
+                                     <thead>
+                                         <tr>
+                                             <td colspan="5" style="border-color: black;">
+                                                 <div class="col-md-12">
+                                                     <div class="row">
+                                                        Kategori : <span t-esc="transaction['CATEGORY_NAME']"/>
+                                                     </div>
+                                                     <div class="row">
+                                                        Item : <span t-esc="transaction['ITEM_NAME']"/>
+                                                     </div>
+                                                 </div>
+                                             </td>
+                                         </tr>
+                                        <tr>
+                                            <th style="border-color: black;">No</th>
+                                            <th style="border-color: black;">Tanggal</th>
+                                            <th style="border-color: black;">Karyawan</th>
+                                            <th style="border-color: black;">Qty Request</th>
+                                            <th style="border-color: black;">Qty Real</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="inc" t-value="1"/>
+                                        <t t-foreach="transaction_details" t-as="transaction_detail">
+                                            <t t-if="transaction['item_id'] == transaction_detail['item_id']">
+                                                <tr>
+                                                    <td style="border-color: black;"><span t-esc="inc"/><t t-set="inc" t-value="inc+1"/></td>
+                                                    <td style="border-color: black;"><span t-esc="transaction_detail['date_request']"/></td>
+                                                    <td style="border-color: black;"><span t-esc="transaction_detail['nik']"/> - <span t-esc="transaction_detail['name']"/></td>
+                                                    <td style="border-color: black;"><span t-esc="transaction_detail['qty']"/> <span t-esc="transaction_detail['UOM_IN']"/></td>
+                                                    <td style="border-color: black;"><span t-esc="transaction_detail['qty_out']"/> <span t-esc="transaction_detail['UOM_OUT']"/></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                        <!--<tr>
+                                            <td style="border-color: black;">x</td>
+                                            <td style="border-color: black;">x</td>
+                                            <td style="border-color: black;">x</td>
+                                            <td style="border-color: black;">x</td>
+                                            <td style="border-color: black;">x</td>
+                                        </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+                <!--<table class="table table-condensed table-bordered" style="border-color: black;">
+                    <thead>
+                        <tr>
+                            <th style="border-color: black;">No</th>
+                            <th style="border-color: black;">Tanggal</th>
+                            <th style="border-color: black;">Karyawan</th>
+                            <th style="border-color: black;">Qty Request</th>
+                            <th style="border-color: black;">Qty Real</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="inc" t-value="1"/>
+                        <t t-set="category_check" t-value="999"/>
+                        <t t-set="item_check" t-value="999"/>
+                        <t t-foreach="transactions" t-as="transaction">
+                            <t t-if="not transaction['item_category_id'] == category_check">
+                                <tr>
+                                    <th colspan="6" style="border-color: black;">
+                                        <span t-esc="transaction['CATEGORY_NAME']"/>
+                                    </th>
+                                </tr>
+                                <t t-set="category_check" t-value="transaction['item_category_id']"/>
+                            </t>
+                            <t t-if="not transaction['item_id'] == item_check">
+                                <tr>
+                                    <th colspan="6" style="border-color: black;">
+                                        >>>> <span t-esc="transaction['ITEM_NAME']"/>
+                                    </th>
+                                </tr>
+                                <t t-set="item_check" t-value="transaction['item_id']"/>
+                            </t>
+                            <tr>
+                                <td style="border-color: black;"><span t-esc="inc"/><t t-set="inc" t-value="inc+1"/></td>
+                                <td style="border-color: black;"><span t-esc="transaction['date_request']"/></td>
+                                <td style="border-color: black;"><span t-esc="transaction['nik']"/> - <span t-esc="transaction['name']"/></td>
+                                <td style="border-color: black;"><span t-esc="transaction['qty']"/> <span t-esc="transaction['UOM_IN']"/></td>
+                                <td style="border-color: black;"><span t-esc="transaction['qty_out']"/> <span t-esc="transaction['UOM_OUT']"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>-->
+            </div>
+        </div>
+    </template>
+</openerp>
