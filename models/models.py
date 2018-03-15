@@ -13,9 +13,9 @@ class DocumentLegal(models.Model):
         obj_mail_mail = self.env['mail.mail']
 
         body_message = """
-            Dear, All
+            Dear, All<br/></br>
 
-            Diinformasikan bahwa dokumen berikut akan habis masa berlakukan dalam <strong>7 hari lagi</strong>
+            Di informasikan bahwa dokumen berikut akan habis masa berlaku dalam <strong>7 hari</strong></br></br>
 
             <h4>%s</h4>
         """
@@ -35,7 +35,7 @@ class DocumentLegal(models.Model):
         for r in res:
             vals = {
                 'email_from': 'admin@prasetiadwidharma.co.id',
-                'email_to': 'Junifar@gmail.com',
+                'email_to': 'junifar.hidayat@prasetiadwidharma.co.id; yohanes.efrendi@prasetiadwidharma.co.id',
                 'state': 'outgoing',
                 'subject': '[Prasetia Legal Document] - Document Expired Soon',
                 'body_html': body_message % r['x_name']
