@@ -3,7 +3,7 @@
 from openerp import models, fields, api
 
 class DocumentLegal(models.Model):
-    _name = "document.legal"
+    _name = "document.legal.send.mail"
 
     name = fields.Char(required=True, string="Nama Dokument")
 
