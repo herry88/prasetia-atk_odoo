@@ -27,7 +27,7 @@ class DocumentLegal(models.Model):
                 FROM
                 "public".x_document_legal
                 WHERE
-                 current_date - "public".x_document_legal.x_tanggal_terbit = 7
+                 "public".x_document_legal.x_tanggal_expire - current_date = 7
                 """
 
         self.env.cr.execute(query)
