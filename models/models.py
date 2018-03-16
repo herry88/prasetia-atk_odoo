@@ -15,9 +15,21 @@ class DocumentLegal(models.Model):
         body_message = """
             Dear, All<br/></br>
 
-            Di informasikan bahwa dokumen berikut akan habis masa berlaku dalam <strong>7 hari</strong></br></br>
+            Di informasikan bahwa dokumen berikut akan habis masa berlaku dalam <strong>21 hari</strong></br></br>
 
-            <h4>%s</h4>
+            <table>
+                <tr>
+                    <th>Document</th>
+                    <th>:</th>
+                    <th><h4>%s</h4></th>
+                </tr>
+                <tr>
+                    <th>Expired</th>
+                    <th>:</th>
+                    <th><h4>%s</h4></th>
+                </tr>
+            </table>
+
         """
         query = """
                 SELECT
@@ -27,7 +39,7 @@ class DocumentLegal(models.Model):
                 FROM
                 "public".x_document_legal
                 WHERE
-                 "public".x_document_legal.x_tanggal_expire - current_date = 7
+                 "public".x_document_legal.x_tanggal_expire - current_date = 21
                 """
 
         self.env.cr.execute(query)
@@ -38,7 +50,7 @@ class DocumentLegal(models.Model):
                 'email_to': 'junifar.hidayat@prasetiadwidharma.co.id; yohanes.efrendi@prasetiadwidharma.co.id',
                 'state': 'outgoing',
                 'subject': '[Prasetia Legal Document] - Document Expired Soon',
-                'body_html': body_message % r['x_name']
+                'body_html': body_message % (r['x_name'], r['x_tanggal_expire'])
             }
             msg_id = obj_mail_mail.create(vals)
             if msg_id:
