@@ -15,7 +15,7 @@ class DocumentLegal(models.Model):
         body_message = """
             Dear, All<br/></br>
 
-            Di informasikan bahwa dokumen berikut akan habis masa berlaku dalam <strong>21 hari</strong></br></br>
+            Di informasikan bahwa dokumen berikut akan habis masa berlaku dalam <strong>30 hari</strong></br></br>
 
             <table>
                 <tr>
@@ -28,6 +28,11 @@ class DocumentLegal(models.Model):
                     <th>:</th>
                     <th><h4>%s</h4></th>
                 </tr>
+                <tr>
+                    <th>Keterangan</th>
+                    <th>:</th>
+                    <th><h4>%s</h4></th>
+                </tr>
             </table>
 
         """
@@ -35,11 +40,12 @@ class DocumentLegal(models.Model):
                 SELECT
                 "public".x_document_legal."id",
                 "public".x_document_legal.x_name,
-                "public".x_document_legal.x_tanggal_expire
+                "public".x_document_legal.x_tanggal_expire,
+                "public".x_document_legal.x_remark
                 FROM
                 "public".x_document_legal
                 WHERE
-                 "public".x_document_legal.x_tanggal_expire - current_date = 21
+                 "public".x_document_legal.x_tanggal_expire - current_date = 30
                 """
 
         self.env.cr.execute(query)
@@ -47,10 +53,10 @@ class DocumentLegal(models.Model):
         for r in res:
             vals = {
                 'email_from': 'admin@prasetiadwidharma.co.id',
-                'email_to': 'junifar.hidayat@prasetiadwidharma.co.id; yohanes.efrendi@prasetiadwidharma.co.id',
+                'email_to': 'daud.sugari@prasetiadwidharma.co.id; nessa@prasetia.co.id; septiyani.haryono@prasetiadwidharma.co.id; yohanes.efrendi@prasetiadwidharma.co.id; junifar.hidayat@prasetiadwidharma.co.id',
                 'state': 'outgoing',
                 'subject': '[Prasetia Legal Document] - Document Expired Soon',
-                'body_html': body_message % (r['x_name'], r['x_tanggal_expire'])
+                'body_html': body_message % (r['x_name'], r['x_tanggal_expire'], r['x_remark'])
             }
             msg_id = obj_mail_mail.create(vals)
             if msg_id:
