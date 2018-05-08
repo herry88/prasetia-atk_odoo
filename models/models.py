@@ -53,7 +53,7 @@ class DocumentLegal(models.Model):
         for r in res:
             vals = {
                 'email_from': 'admin@prasetiadwidharma.co.id',
-                'email_to': 'daud.sugari@prasetiadwidharma.co.id; nessa@prasetia.co.id; septiyani.haryono@prasetiadwidharma.co.id; yohanes.efrendi@prasetiadwidharma.co.id; junifar.hidayat@prasetiadwidharma.co.id',
+                'email_to': 'daud.sugari@prasetiadwidharma.co.id; nessa@prasetia.co.id; septiyani.haryono@prasetiadwidharma.co.id; yohanes.efrendi@prasetiadwidharma.co.id',
                 'state': 'outgoing',
                 'subject': '[Prasetia Legal Document] - Document Expired Soon',
                 'body_html': body_message % (r['x_name'], r['x_tanggal_expire'], r['x_remark'])
